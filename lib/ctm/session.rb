@@ -11,7 +11,7 @@ class Session
   def initialize(period="morning")
     @talks = []
 
-    if period == "afternoon"
+    if period.downcase == "afternoon"
       @time = Time.parse("13:00")
       @available_time = AFTERNOON_LENGTH
     else

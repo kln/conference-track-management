@@ -24,6 +24,37 @@ describe "talk" do
     end
   end
 
+  context 'description' do
+    before do
+      @talk_lists = {
+                "Talk legal" => 240,
+                "Talk cool" => 180,
+                "Talk fresc" => 180,
+                "Talk koel" => 240
+              }
+    end
+
+    describe "#update_talk_lists" do
+      it "should update talk lists after insert in track" do
+       talk_lists = @talk_lists.dup
+
+       track1 = Track.new
+       track1.morning_sessions.talks << "09:00 Talk cool 180min"
+       track1.afternoon_sessions.talks << "13:00 Talk legal 240min"
+
+       talk_lists = Talk.update_talk_lists(talk_lists, track1)
+       expect(talk_lists.count).to eq(2)
+      end
+    end
+
+    describe "#quantity_of_tracks" do
+      it "should return 3" do
+        t = Talk.quantity_of_tracks(@talk_lists)
+        expect(t).to eq(2)
+      end
+    end
+  end
+
   private
     def new_talk(length, title=nil)
       title ||= "Not-Entreprise Message Bus"

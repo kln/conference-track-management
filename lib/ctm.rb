@@ -11,32 +11,23 @@ File.readlines(file).each do |line|
   talk_lists[t.title] = t.length
 end
 
-total_length_talks = talk_lists.values.reduce(:+)
-number_of_tracks_needed = Track.new.quantity_needed(total_length_talks)
+number_of_tracks_needed = Talk.quantity_of_tracks(talk_lists)
 
-number_of_tracks_needed.times do |track|
+number_of_tracks_needed.times do |n|
   puts
-  puts "TRACK #{track + 1}"
+  puts "TRACK #{n + 1}"
 
-  morning_session   = Session.new("morning")
-  afternoon_session = Session.new("afternoon")
+  track = Track.new
+  track.insert_talks_on_track(talk_lists)
 
-  talk_lists.each do |title, length|
-    if morning_session.has_space?(length)
-      morning_session.add(title, length)
-      talk_lists.delete(title)
-    elsif afternoon_session.has_space?(length)
-      afternoon_session.add(title, length)
-      talk_lists.delete(title)
-    end
-  end
+  talk_lists = Talk.update_talk_lists(talk_lists, track)
 
   puts "- MORNING SESSION"
-  puts morning_session.talks
+  puts track.morning_sessions.talks
   puts "12:00 Lunch"
   puts "- AFTERNOON SESSION"
-  puts afternoon_session.talks
-  puts "#{afternoon_session.network_time} Networking Event"
+  puts track.afternoon_sessions.talks
+  puts "#{track.afternoon_sessions.network_time} Networking Event"
   puts "==============================="
 
 end
