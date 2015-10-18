@@ -1,0 +1,8 @@
+Evoluindo uma aplicação com uso do Elasticsearch 50min
+Vagrant, LXC and Docker: Know the differences 60min
+Ruby on Rails 45min
+How to test my Javascript code? 50min
+The developer choices lightning
+Not-Entreprise Message Bus 30min
+Ruby + Linux Pipe + Graph Database + Hard Work 50min
+Rails and Javascript - Do it right! 40min
